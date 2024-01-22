@@ -59,7 +59,11 @@ function Todo() {
       <ul className="flex flex-col gap-2">
         {tasks.map(({ id, label }) => (
           <li key={id} className="flex items-center gap-4">
-            <Button variant="outline" onClick={() => removeTask(id)}>
+            <Button
+              variant="outline"
+              onClick={() => removeTask(id)}
+              aria-label="Remove Task"
+            >
               <IconX size="24" />
             </Button>
             <span>{label}</span>
