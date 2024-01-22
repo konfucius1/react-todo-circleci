@@ -32,6 +32,11 @@ function Todo() {
     setTasks(tasks.filter((task) => task.id !== id))
   }
 
+  // Function to clear all tasks
+  function clearTasks() {
+    setTasks([])
+  }
+
   return (
     <div className="flex flex-col gap-4 p-8">
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 self-center">
@@ -41,9 +46,15 @@ function Todo() {
         <TodoInput onChange={setNewTaskLabel} value={newTaskLabel} />
         <ModeToggle />
       </section>
-      <Button className="w-36" onClick={addTask}>
-        Submit
-      </Button>
+
+      <div className="flex gap-4 w-72">
+        <Button className="w-full" onClick={addTask}>
+          Submit
+        </Button>
+        <Button variant="outline" className="w-full" onClick={clearTasks}>
+          Clear All
+        </Button>
+      </div>
 
       <ul className="flex flex-col gap-2">
         {tasks.map(({ id, label }) => (
