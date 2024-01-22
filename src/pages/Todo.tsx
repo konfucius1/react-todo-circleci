@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import TodoInput from '@/components/TodoInput'
 import { ModeToggle } from '@/components/providers/mode-toggle'
 import { Button } from '@/components/ui/button'
@@ -37,24 +37,33 @@ function Todo() {
     setTasks([])
   }
 
+  // Function to handle submission
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault()
+    addTask()
+  }
+
   return (
     <div className="flex flex-col gap-4 p-8">
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 self-center">
         Todo List
       </h2>
-      <section className="flex justify-between">
-        <TodoInput onChange={setNewTaskLabel} value={newTaskLabel} />
-        <ModeToggle />
-      </section>
 
-      <div className="flex gap-4 w-72">
-        <Button className="w-full" onClick={addTask}>
-          Submit
-        </Button>
-        <Button variant="outline" className="w-full" onClick={clearTasks}>
-          Clear All
-        </Button>
-      </div>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <div className="flex justify-between">
+          <TodoInput onChange={setNewTaskLabel} value={newTaskLabel} />
+          <ModeToggle />
+        </div>
+
+        <section className="flex w-72 gap-4">
+          <Button className="w-full" type="submit">
+            Submit
+          </Button>
+          <Button variant="outline" className="w-full" onClick={clearTasks}>
+            Clear All
+          </Button>
+        </section>
+      </form>
 
       <ul className="flex flex-col gap-2">
         {tasks.map(({ id, label }) => (
